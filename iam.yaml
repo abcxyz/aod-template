@@ -1,0 +1,30 @@
+# To request access via IAM, edit this file.
+
+# Allowed resources are organization, folder, and project.
+# Allowed members are individual users.
+# Allowed roles do not include basic roles such as Owner (roles/owner), Editor
+# (roles/editor), and Viewer (roles/viewer).
+
+# See below example:
+
+# policies:
+# - resource: organizations/foo
+#   bindings:
+#   - members:
+#     - user:test-org-userA@example.com
+#     - user:test-org-userB@example.com
+#     role: roles/cloudkms.cryptoOperator
+#   - members:
+#     - user:test-org-userA@example.com
+#     - user:test-org-userB@example.com
+#     role: roles/accessapproval.approver
+# - resource: folders/bar
+#   bindings:
+#     - members:
+#       - user:test-folder-user@example.com
+#       role: roles/cloudkms.cryptoOperator
+# - resource: projects/baz
+#   bindings:
+#     - members:
+#       - user:test-project-user@example.com
+#       role: roles/bigquery.dataViewer

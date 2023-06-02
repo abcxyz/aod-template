@@ -1,0 +1,64 @@
+name: 'aod-iam-request'
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  pull_request_review:
+    types: ['submitted']
+
+# Assign values to below envs.
+env:
+  WIF_PROVIDER: <YOUR WIF PROVIDER> # format: 'projects/<project ID>/locations/<resource location>/workloadIdentityPools/<pool name>/providers/github-provider'
+  WIF_SERVICE_ACCOUNT: <YOUR WIF SERVICE ACCOUNT>
+  AOD_CLI_VERSION: 'latest'
+  GO_VERISON: '1.20'
+
+jobs:
+  # We should add a check here that checks whether iam.yaml has changed. If yes, continue.
+  # Instead of relying a 'feature' label. A feature PR opened before a label is attached
+  # shouldn't trigger validate PR.
+
+  # set_envs is needed to pass envs in a centralized place (top level env).
+  # Reusable workflows share variables either using GH action variables configured
+  # or job outputs. Check the fourth point here
+  # https://docs.github.com/en/actions/using-workflows/reusing-workflows#limitations
+  set_envs:
+    runs-on: ubuntu-latest
+    # This job does not require any permissions.
+    permissions: {}
+    # Map step outputs to job outputs
+    outputs:
+      wif_provider: '${{ steps.wif.outputs.WIF_PROVIDER }}'
+      wif_sa: '${{ steps.wif.outputs.WIF_SERVICE_ACCOUNT }}'
+      aod_cli_version: '${{ steps.wif.outputs.AOD_CLI_VERSION }}'
+      go_version: '${{ steps.wif.outputs.GO_VERISON }}'
+    steps:
+      - id: 'wif'
+        run: |
+          echo "WIF_PROVIDER=${{ env.WIF_PROVIDER }}" >> "$GITHUB_OUTPUT"
+          echo "WIF_SERVICE_ACCOUNT=${{ env.WIF_SERVICE_ACCOUNT }}" >> "$GITHUB_OUTPUT"
+          echo "AOD_CLI_VERSION=${{ env.AOD_CLI_VERSION }}" >> "$GITHUB_OUTPUT"
+          echo "GO_VERISON=${{ env.GO_VERISON }}" >> "$GITHUB_OUTPUT"
+
+  validate:
+    # Validate the request when the triggering event is pull_request_review or pull request.
+    if: ${{ contains(fromJSON('["pull_request_review", "pull_request"]'), github.event_name) }}
+    needs: 'set_envs'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-validate.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
+    with:
+      aod_cli_version: '${{ needs.set_envs.outputs.aod_cli_version }}'
+      go_version: '${{ needs.set_envs.outputs.go_version }}'
+
+  handle:
+    # Handle the request when the triggering event is pull request review and it is approved.
+    if: ${{ github.event_name == 'pull_request_review' && github.event.review.state == 'approved' }}
+    needs:
+      - 'set_envs'
+      - 'validate'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-handle.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
+    with:
+      workload_identity_provider: '${{ needs.set_envs.outputs.wif_provider }}'
+      service_account: '${{ needs.set_envs.outputs.wif_sa }}'
+      aod_cli_version: '${{ needs.set_envs.outputs.aod_cli_version }}'
+      go_version: '${{ needs.set_envs.outputs.go_version }}'
