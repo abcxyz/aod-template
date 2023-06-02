@@ -1,0 +1,50 @@
+# Workflow that validates and handles AOD IAM request.
+name: 'aod-iam'
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  pull_request_review:
+    types: ['submitted']
+
+jobs:
+  # Check if it is an AOD request
+  is_iam:
+    uses: 'abcxyz/aod-tempate/.github/workflows/reusable-checker.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
+    with:
+      path: 'iam.yaml'
+
+  # An always fail job to prevent AOD request from merging to main.
+  ok_to_merge:
+    needs: 'is_iam'
+    if: ${{ needs.is_iam.outputs.is_aod == 'true'}}
+    runs-on: ubuntu-latest
+    steps:
+      - id: 'fail'
+        run: exit 1
+
+  set_inputs:
+    needs: 'is_iam'
+    if: ${{ needs.is_iam.outputs.is_aod == 'true'}}
+    uses: 'abcxyz/aod-tempate/.github/workflows/aod-set-inputs.yml@main'
+
+  validate:
+    needs: 'set_inputs'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-validate.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
+    with:
+      aod_cli_version: '${{ needs.set_inputs.outputs.aod_cli_version }}'
+      go_version: '${{ needs.set_inputs.outputs.go_version }}'
+
+  handle:
+    # Handle the request when the triggering event is pull request review and it is approved.
+    if: ${{ github.event_name == 'pull_request_review' && github.event.review.state == 'approved' }}
+    needs:
+      - 'set_inputs'
+      - 'validate'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-handle.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
+    with:
+      workload_identity_provider: '${{ needs.set_inputs.outputs.workload_identity_provider }}'
+      service_account: '${{ needs.set_inputs.outputs.service_account }}'
+      aod_cli_version: '${{ needs.set_inputs.outputs.aod_cli_version }}'
+      go_version: '${{ needs.set_inputs.outputs.go_version }}'
