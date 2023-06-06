@@ -1,0 +1,22 @@
+# Workflow that validates AOD IAM request.
+name: 'iam-validate'
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - 'iam.yaml'
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-iam-request-validation'
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-validate.yml@main' # Currently using main, change here to ping the tag/ref.
+    # To specify inputs, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+    with:
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.20'' }}'

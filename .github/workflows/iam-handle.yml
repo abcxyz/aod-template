@@ -1,0 +1,41 @@
+# Workflow that validates and handles AOD IAM request.
+name: 'iam-handle'
+
+on:
+  pull_request_review:
+    types: ['submitted']
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-iam-request-handle'
+  cancel-in-progress: true
+
+jobs:
+  # An always fail job to prevent AOD request from merging to main.
+  do_not_merge:
+    # Only run when it is not a feature change and it is approved.
+    if: '${{ !contains(github.event.pull_request.labels.*.name, ''feature'') && github.event.review.state == ''approved'' }}'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - id: 'fail'
+        run: 'exit 1'
+
+  validate:
+    # Only run when it is not a feature change and it is approved.
+    if: '${{ !contains(github.event.pull_request.labels.*.name, ''feature'') && github.event.review.state == ''approved'' }}'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-validate.yml@main' # Currently using main, change here to ping the tag/ref.
+    # To specify inputs, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+    with:
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.20'' }}'
+
+  handle:
+    needs: 'validate'
+    uses: 'abcxyz/access-on-demand/.github/workflows/iam-handle.yml@main' # Currently using main, change here to ping the tag/ref.
+    # To specify inputs, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+    with:
+      workload_identity_provider: '${{ vars.workload_identity_provider }}'
+      service_account: '${{ vars.service_account }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.20'' }}'
