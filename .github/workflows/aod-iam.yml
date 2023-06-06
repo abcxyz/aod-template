@@ -12,8 +12,6 @@ jobs:
   # Check if it is an AOD request
   is_iam:
     uses: 'abcxyz/aod-tempate/.github/workflows/reusable-checker.yml@main' # Since it does not have any access to github context, directly ping the tag/ref here.
-    with:
-      path: 'iam.yaml'
 
   # An always fail job to prevent AOD request from merging to main.
   ok_to_merge:
