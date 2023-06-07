@@ -1,5 +1,5 @@
-# Workflow that validates AOD IAM request.
-name: 'iam-validate'
+# Workflow that validates a AOD requests.
+name: 'aod-validate'
 
 on:
   pull_request:
@@ -9,12 +9,19 @@ on:
       - 'iam.yaml'
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-iam-request-validation'
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-request-validation'
   cancel-in-progress: true
 
 jobs:
+  # An always fail job to prevent AOD request from merging to main.
+  do_not_merge:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - id: 'fail'
+        run: 'exit 1'
+
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/iam-validate.yml@main' # Currently using main, change here to ping the tag/ref.
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@main' # Currently using main, change here to ping the tag.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
