@@ -1,0 +1,21 @@
+# Workflow that handles AOD requests.
+name: 'aod-handle'
+
+on:
+  pull_request_review:
+    types: ['submitted']
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-request-handle'
+  cancel-in-progress: true
+
+jobs:
+  handle:
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@main' # Currently using main, change here to ping the tag.
+    # To specify inputs, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+    with:
+      workload_identity_provider: '${{ vars.workload_identity_provider }}'
+      service_account: '${{ vars.service_account }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.20'' }}'
