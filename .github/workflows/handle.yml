@@ -11,6 +11,9 @@ concurrency:
 
 jobs:
   handle:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@main' # Currently using main, change here to ping the tag.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
