@@ -1,0 +1,9 @@
+policies:
+- resource: projects/aod-template-i-7bf575
+  bindings:
+  - members:
+    - user:suhongq@google.com
+    role: roles/cloudkms.cryptoOperator
+  - members:
+    - user:suhongq@google.com
+    role: roles/accessapproval.approver
