@@ -7,12 +7,12 @@ This template is for creating an AOD (access on demain) repository for GCP organ
 After completing the installation. Follow below steps to file an AOD request.
 1. Open a PR
   - A title and description to provide enough justification. E.g. "AOD request: debug customer issue X".
-  - Add following file at the repo root:
+  - Add following file at the repo root, note that any changes with below file changes will be considered AOD request and thus cannot be merged:
     - iam.yaml - Request for IAM permissions on organization / folder / project level. To see an example of this file, refer to the example-iam.yaml file.
-  - Optionally use predefined labels on the PR to specify the AOD duration. The duration is default to 2h if no label is used.
+  - Optionally use predefined duration labels on the PR to specify the IAM permission expiration. The duration is default to 2h if no label is used.
 
 2. PR approval
-  - Github workflows will check if the PR a AOD request, marked by a "do_not_merge" failure workflow, and if it is a valid AOD request.
+  - Github workflows will check if the PR is an AOD request, marked by a "do_not_merge" failure workflow, and if it is a valid AOD request.
   - Upon PR approval, the request will be handled by AOD.
 
 3. Close the PR after the request is handled successfully.
@@ -81,8 +81,8 @@ resource "google_iam_workload_identity_pool_provider" "github_provider" {
 resource "google_service_account" "wif_service_account" {
   project = var.project_id
 
-  account_id   = "${substr(var.name, 0, 19)}-${random_id.default.hex}-ci-sa" # 30 character limit
-  display_name = "${var.name} CI Service Account"
+  account_id   = "${substr(var.name, 0, 19)}-${random_id.default.hex}-wif-sa" # 30 character limit
+  display_name = "${var.name} WIF Service Account"
 }
 
 resource "google_service_account_iam_member" "wif_github_iam" {
@@ -92,15 +92,15 @@ resource "google_service_account_iam_member" "wif_github_iam" {
 }
 
 # Grant permissions required for operation AOD. This is just an example, your team is responsible for granting the right permissions.
-resource "google_project_iam_member" "ci_service_account_iam" {
+resource "google_project_iam_member" "wif_service_account_iam" {
   for_each = toset([
     "roles/resourcemanager.projectIamAdmin"
   ])
 
-  project = "suhongq-dev-041665"
+  project = var.project_id
 
   role   = each.key
-  member = module.github_ci_infra.service_account_member
+  member = google_service_account.wif_service_account.member
 }
 
 # Output below values for step 3.

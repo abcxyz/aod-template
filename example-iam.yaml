@@ -1,6 +1,6 @@
 # IAM request example file.
 
-# Allowed resources are organization, folder, and project.
+# Allowed resources are organizations, folders, and projects.
 # Allowed members are individual users.
 # Allowed roles do not include basic roles such as Owner (roles/owner), Editor
 # (roles/editor), and Viewer (roles/viewer).
