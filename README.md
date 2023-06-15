@@ -18,8 +18,8 @@ to set up this repo properly.**
     -   To request IAM permissions on org/folder/project level, add an
         `iam.yaml` file in the repo root.
     -   See an example of this file, see example in
-        [example-iam.yaml](https://github.com/abcxyz/aod-template/example-iam.yaml).
-    -   Optionally use predefined duration labels on the PR to specify the IAM
+        [example-iam.yaml](https://github.com/abcxyz/aod-template/blob/main/example-iam.yaml).
+    -   (Optional) Use predefined duration labels on the PR to specify the IAM
         permission expiration. Otherwise a 2h default duration will be used.
     -   (Later) To request on-demand `gcloud` commands, add an `gcloud.yaml`
         file in the repo root.
@@ -49,12 +49,12 @@ The admin of your GCP project/folder/org to complete the steps below.
 1.  Create an AOD repository using this template, only copy main branch is
     required.
 
-2.  Setup
+2.  Set up
     [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation),
     and a service account, see guide
     [here](https://github.com/google-github-actions/auth#setting-up-workload-identity-federation).
 
-    -   The minimum permissions are the get and set IAM policy. These
+    -   The minimum permissions are `getIamPolicy` and `setIamPolicy`. These
         permissions can be on projects, folders, or organizations level. For
         example,
         ["roles/resourcemanager.projectIamAdmin"](https://cloud.google.com/resource-manager/docs/access-control-proj#resourcemanager.projectIamAdmin)
@@ -71,7 +71,7 @@ The admin of your GCP project/folder/org to complete the steps below.
     permissions granted via AOD will have a default 2 hour expiration when the
     request is approved. To use custom expirations, follow steps
     [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
-    to create duration labels. "duration-4h" is an example of valid duration
+    to create duration labels. `duration-4h` is an example of valid duration
     label.
 
 5.  It is critical to enable the following repo settings:
@@ -79,12 +79,12 @@ The admin of your GCP project/folder/org to complete the steps below.
     -   Disable forking
     -   Branch protection on main branch
     -   Require approvals
+    -   Set up [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) with the group to approve AOD requests
     -   Require review from Code Owners
     -   Disallow specific actors to bypass required pull requests
     -   Require status checks to pass before merging
     -   Require signed commits
     -   Disallow force pushes
     -   Disallow deletions
-    -   Set up CODEOWNERS with the group to approve AOD requests
 
 ## Adding code other than AOD (TODO #9)
