@@ -1,0 +1,20 @@
+# Workflow that expires/closes AOD PRs.
+name: 'aod-expire'
+
+on:
+  schedule:
+    # Change cron schedule here, currently it is every day at 1am.
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  handle:
+    permissions:
+      pull-requests: 'write'
+    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@main' # Currently using main, change here to ping the tag.
+    with:
+      repo: '${{ github.repository }}'
+      # To specify expiry_hours (the number of hours to keep an AOD PR open
+      # since last updated), change the repository variables.
+      # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+      expiry_hours: '${{ vars.expiry_hours || 24 }}'
