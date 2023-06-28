@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@main' # Currently using main, change here to ping the tag.
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@631afb08cab73e4a13d24a2943ab442061a2b667' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
