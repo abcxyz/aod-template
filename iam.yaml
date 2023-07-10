@@ -1,0 +1,16 @@
+policies:
+  - resource: 'organizations/530357951288'
+    bindings:
+      - members:
+          - 'user:dcreey@google.com'
+        role: 'roles/viewer'
+  - resource: 'folders/147093663419'
+    bindings:
+      - members:
+          - 'user:dcreey@google.com'
+        role: 'roles/viewer'
+  - resource: 'projects/805844391901'
+    bindings:
+      - members:
+          - 'user:dcreey@google.com'
+        role: 'roles/viewer'
