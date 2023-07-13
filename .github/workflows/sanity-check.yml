@@ -13,15 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # An always fail job to prevent AOD request from merging to main.
-  do_not_merge:
-    runs-on: 'ubuntu-latest'
-    steps:
-      - id: 'fail'
-        run: 'exit 1'
-
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@b9d2e2b86bf8bbb00547f0284f53897cd7dda9ab' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@08e700894c010ca2110fe2a99b964bc27986b120' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
