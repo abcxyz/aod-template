@@ -21,7 +21,7 @@ jobs:
         run: 'exit 1'
 
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@631afb08cab73e4a13d24a2943ab442061a2b667' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@b9d2e2b86bf8bbb00547f0284f53897cd7dda9ab' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
