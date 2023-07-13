@@ -26,8 +26,6 @@ to set up this repo properly.**
 
 2.  Checks
 
-    -   All AOD PRs will fail the check "do_not_merge" to prevent accidental
-        merge.
     -   The "Validate Request" check will report errors if there are problems in
         your `iam.yaml` or `gcloud.yaml`.
 
@@ -36,9 +34,11 @@ to set up this repo properly.**
     -   Ask one of the repo code owners to approve the PR
     -   Upon approval, another GitHub workflow will run to grant you the IAM
         permissions or run the on-demand `gcloud` commands
+    -   The result will be posted as PR comments
 
-4.  Close the PR after you no longer need the access. The PR will automatically
-    be closed after X hours (TODO #8).
+4.  The AOD request PR cannot and should not be merged. Close the PR after you
+    no longer need the access. The PR will automatically be closed after X
+    hours.
 
 ## How AOD works(TODO #7)
 
@@ -76,16 +76,18 @@ The admin of your GCP project/folder/org to complete the steps below.
 
 5.  It is critical to enable the following repo settings:
 
-    -   [Lock branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#lock-branch)
-    -   Branch protection on main branch
     -   Disable forking
-    -   Require approvals
     -   Set up [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) with the group to approve AOD requests
-    -   Require review from Code Owners
-    -   Disallow specific actors to bypass required pull requests
-    -   Require status checks to pass before merging
-    -   Require signed commits
-    -   Disallow force pushes
-    -   Disallow deletions
+    -   Branch protection on the `main` (default) branch
+        - Require a pull request before merging
+            -   Require approvals
+            -   Dismiss stale pull request approvals when new commits are pushed
+            -   Require review from Code Owners
+            -   Require approval of the most recent reviewable push
+        -   Require status checks to pass before merging
+        -   Require signed commits
+        -   [Lock branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#lock-branch)
+        -   Disallow force pushes
+        -   Disallow deletions
 
 ## Adding code other than AOD (TODO #9)
