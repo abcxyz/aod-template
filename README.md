@@ -76,8 +76,9 @@ The admin of your GCP project/folder/org to complete the steps below.
 
 5.  It is critical to enable the following repo settings:
 
-    -   Disable forking
+    -   [Lock branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#lock-branch)
     -   Branch protection on main branch
+    -   Disable forking
     -   Require approvals
     -   Set up [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) with the group to approve AOD requests
     -   Require review from Code Owners
