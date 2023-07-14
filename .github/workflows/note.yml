@@ -1,0 +1,19 @@
+# Workflow that adds a note to every AOD request.
+name: 'aod-note'
+
+on:
+  pull_request:
+    types:
+      - 'opened'
+    paths:
+      - 'iam.yaml'
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-note'
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    permissions:
+      pull-requests: 'write'
+    uses: 'abcxyz/access-on-demand/.github/workflows/note.yml@d3b16486fb826e49bea4c6feb2ac12682523bdfb' # Change here to pin the tag or commit.
