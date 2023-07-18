@@ -15,7 +15,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@d3b16486fb826e49bea4c6feb2ac12682523bdfb' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@d27c31c0b847df8001cf3a2049282b77f4d453c5' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
