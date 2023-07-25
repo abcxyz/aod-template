@@ -16,9 +16,10 @@ jobs:
   validate:
     permissions:
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/note.yml@d27c31c0b847df8001cf3a2049282b77f4d453c5' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/note.yml@69ed1ec5f199b2830a5c5bd378a239c2c8fe0da4' # Change here to pin the tag or commit.
     with:
       # To specify expiry_hours (the number of hours to keep an AOD PR open
       # since last updated), change the repository variables.
       # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
       expiry_hours: '${{ vars.expiry_hours || 24 }}'
+      aod_instruction_link: 'https://github.com/abcxyz/aod-template#readme'
