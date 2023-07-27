@@ -51,12 +51,19 @@ The admin of your GCP project/folder/org to complete the steps below.
 
 2.  Set up
     [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation),
-    and a service account, see guide
+    and a service account with adequate condition and permission, see guide
     [here](https://github.com/google-github-actions/auth#setting-up-workload-identity-federation).
 
-    -   The minimum permissions are `getIamPolicy` and `setIamPolicy`. These
-        permissions can be on projects, folders, or organizations level. For
-        example,
+    -   Make sure to map the attribute `"attribute.job_workflow_ref":
+        "assertion.job_workflow_ref"` and add an attribute condition
+        `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")`
+        when creating the workload identity pool provider to only allow trusted
+        GitHub workflows which are workflows from `abcxyz/access-on-demand`
+        repo.
+
+    -   The minimum permissions for the service account are `getIamPolicy` and
+        `setIamPolicy`. These permissions can be on projects, folders, or
+        organizations level. For example,
         ["roles/resourcemanager.projectIamAdmin"](https://cloud.google.com/resource-manager/docs/access-control-proj#resourcemanager.projectIamAdmin)
         is a predefined role for managing project level IAM permission, an
         alternative is to use custom roles for a more restricted set of
