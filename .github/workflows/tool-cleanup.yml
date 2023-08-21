@@ -12,25 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Workflow that validates a AOD requests.
-name: 'aod-validate'
+# Workflow that handles AOD tool requests cleanup.
+name: 'aod-tool-cleanup'
 
 on:
   pull_request:
+    types: 'closed'
     branches:
       - 'main'
     paths:
-      - 'iam.yaml'
+      - 'tool.yaml'
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-request-validation'
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-tool-cleanup'
   cancel-in-progress: true
 
 jobs:
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@278a12e409dc59db6168b7224c5a1aff5b991ad8' # Change here to pin the tag or commit.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      pull-requests: 'write'
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@278a12e409dc59db6168b7224c5a1aff5b991ad8' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
+      workload_identity_provider: '${{ vars.workload_identity_provider }}'
+      service_account: '${{ vars.service_account }}'
       aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
       go_version: '${{ vars.go_version || ''1.21'' }}'
