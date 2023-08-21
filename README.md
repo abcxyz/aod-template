@@ -17,28 +17,36 @@ to set up this repo properly.**
         request: debug customer issue X".
     -   To request IAM permissions on org/folder/project level, add an
         `iam.yaml` file in the repo root.
-    -   See an example of this file, see example in
-        [example-iam.yaml](https://github.com/abcxyz/aod-template/blob/main/example-iam.yaml).
+    -   To see an example of this file, see example in
+        [example-iam.yaml](example-iam.yaml).
     -   (Optional) Use predefined duration labels on the PR to specify the IAM
         permission expiration. Otherwise a 2h default duration will be used.
-    -   (Later) To request on-demand `gcloud` commands, add an `gcloud.yaml`
-        file in the repo root.
+    -   To request on-demand `gcloud` commands, add a `tool.yaml` file
+        in the repo root.
+    -   To see an example of this file, see example in
+        [example-tool.yaml](example-tool.yaml).
 
 2.  Checks
 
     -   The "Validate Request" check will report errors if there are problems in
-        your `iam.yaml` or `gcloud.yaml`.
+        your `iam.yaml` or `tool.yaml`.
 
 3.  Getting approval
 
-    -   Ask one of the repo code owners to approve the PR
+    -   Ask one of the repo code owners to approve the PR.
     -   Upon approval, another GitHub workflow will run to grant you the IAM
-        permissions or run the on-demand `gcloud` commands
-    -   The result will be posted as PR comments
+        permissions or run the on-demand `gcloud` commands (`do` commands in
+        your `tool.yaml` file).
+    -   The result will be posted as PR comments.
 
-4.  The AOD request PR cannot and should not be merged. Close the PR after you
-    no longer need the access. The PR will automatically be closed after X
-    hours.
+4.  The AOD request PR cannot and should not be merged
+
+    -   Close the IAM request PR after you no longer need the access.
+    -   Close the tool request PR when you want to execute the cleanup commands
+        (`cleanup` commands in your `tool.yaml` file).
+
+    Otherwise, the PR will automatically be closed after X hours depending on
+    how you configure your [expire.yml](.github/workflows/expire.yml) job.
 
 ## How AOD works(TODO #7)
 
@@ -97,4 +105,6 @@ The admin of your GCP project/folder/org to complete the steps below.
         -   Disallow force pushes
         -   Disallow deletions
 
-## Adding code other than AOD (TODO #9)
+## Adding code other than AOD
+
+It should be the same as you adding code in your other repositories.

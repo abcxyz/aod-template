@@ -1,0 +1,16 @@
+# Tool request example file.
+
+# Currently we only support gcloud cli, both `do` and `cleanup` commands need to
+# be without the cli name.
+
+# See below example:
+
+do:
+  - >-
+    scheduler jobs update pubsub my-job
+    --update-attributes=KEY1=VAL1,KEY2=VAL2
+  - 'scheduler jobs run my-job'
+cleanup:
+  - >-
+    scheduler jobs update pubsub my-job
+    --remove-attributes=KEY1=VAL1,KEY2=VAL2
