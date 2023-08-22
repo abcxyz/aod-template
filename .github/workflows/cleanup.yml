@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Workflow that handles AOD tool requests cleanup.
-name: 'aod-tool-cleanup'
+# Workflow that handles AOD requests cleanup.
+name: 'aod-cleanup'
 
 on:
   pull_request:
@@ -24,7 +24,7 @@ on:
       - 'tool.yaml'
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-tool-cleanup'
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-cleanup'
   cancel-in-progress: true
 
 jobs:
