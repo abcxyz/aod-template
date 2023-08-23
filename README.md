@@ -104,8 +104,7 @@ The admin of your GCP project/folder/org to complete the steps below.
 
 ## Adding code other than AOD
 
-You need to have:
-
--   A PR ready to merge: open a PR with signed commits -> pass status checks if
-    any -> get required approvals.
--   Permissions to bypass the `lock branch` branch protection rule.
+Rarely but the repo admins might need to check in changes to the repo that are
+not AOD request. To do that, the admin would need to send PRs as usual with
+"lock branch" temporarily disabled. This activity should be coordinated
+carefully to make sure AOD request PRs won't be merged accidentally.
