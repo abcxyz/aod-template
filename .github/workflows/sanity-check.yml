@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@278a12e409dc59db6168b7224c5a1aff5b991ad8' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@2eba0549e4a5879ffcfa129d5fcdfcf10985d0d2' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
