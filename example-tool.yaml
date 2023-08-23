@@ -1,10 +1,8 @@
 # Tool request example file.
 
-# Currently we only support gcloud cli, both `do` and `cleanup` commands need to
-# be without the cli name.
-
-# See below example:
-
+# Currently we only support gcloud tool, the defaul tool is `gcloud`.
+tool: 'gcloud'
+# Both `do` and `cleanup` commands need to be without the tool name.
 do:
   - >-
     scheduler jobs update pubsub my-job
