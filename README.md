@@ -36,7 +36,7 @@ to set up this repo properly.**
         your `tool.yaml` file).
     -   The result will be posted as PR comments.
 
-4.  The AOD request PR cannot and should not be merged
+4.  The AOD request PR **CANNOT** and **SHOULD NOT** be merged
 
     Please close the PR when you are done and a workflow will be triggered to do
     cleanup. Otherwise, the PR will automatically be closed after X hours
