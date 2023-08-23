@@ -104,4 +104,6 @@ The admin of your GCP project/folder/org to complete the steps below.
 
 ## Adding code other than AOD
 
-It should be the same as you adding code in your other repositories.
+It should be the same as you adding code in your other repositories that has the
+same repo settings: open a PR with signed commits -> pass status checks if any
+-> get required approvals -> merge the PR.
