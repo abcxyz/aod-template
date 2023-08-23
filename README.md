@@ -16,29 +16,32 @@ to set up this repo properly.**
     -   A title and description to provide enough justification. E.g. "AOD
         request: debug customer issue X".
     -   To request IAM permissions on org/folder/project level, add an
-        `iam.yaml` file in the repo root.
-    -   See an example of this file, see example in
-        [example-iam.yaml](https://github.com/abcxyz/aod-template/blob/main/example-iam.yaml).
-    -   (Optional) Use predefined duration labels on the PR to specify the IAM
-        permission expiration. Otherwise a 2h default duration will be used.
-    -   (Later) To request on-demand `gcloud` commands, add an `gcloud.yaml`
-        file in the repo root.
+        `iam.yaml` file in the repo root, see [example](example-iam.yaml).
+        -   (Optional) Use predefined duration labels on the PR to specify the
+            IAM permission expiration. Otherwise a 2h default duration will be
+            used.
+    -   To request on-demand `gcloud` commands, add a `tool.yaml` file in the
+        repo root, see [example](example-tool.yaml).
 
 2.  Checks
 
     -   The "Validate Request" check will report errors if there are problems in
-        your `iam.yaml` or `gcloud.yaml`.
+        your `iam.yaml` or `tool.yaml`.
 
 3.  Getting approval
 
-    -   Ask one of the repo code owners to approve the PR
+    -   Ask one of the repo code owners to approve the PR.
     -   Upon approval, another GitHub workflow will run to grant you the IAM
-        permissions or run the on-demand `gcloud` commands
-    -   The result will be posted as PR comments
+        permissions or run the on-demand `gcloud` commands (`do` commands in
+        your `tool.yaml` file).
+    -   The result will be posted as PR comments.
 
-4.  The AOD request PR cannot and should not be merged. Close the PR after you
-    no longer need the access. The PR will automatically be closed after X
-    hours.
+4.  The AOD request PR **CANNOT** and **SHOULD NOT** be merged
+
+    Please close the PR when you are done and a workflow will be triggered to do
+    cleanup. Otherwise, the PR will automatically be closed after X hours
+    depending on how you configure your
+    [expire.yml](.github/workflows/expire.yml) job.
 
 ## How AOD works(TODO #7)
 
@@ -84,9 +87,11 @@ The admin of your GCP project/folder/org to complete the steps below.
 5.  It is critical to enable the following repo settings:
 
     -   Disable forking
-    -   Set up [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) with the group to approve AOD requests
+    -   Set up
+        [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+        with the group to approve AOD requests
     -   Branch protection on the `main` (default) branch
-        - Require a pull request before merging
+        -   Require a pull request before merging
             -   Require approvals
             -   Dismiss stale pull request approvals when new commits are pushed
             -   Require review from Code Owners
@@ -97,4 +102,9 @@ The admin of your GCP project/folder/org to complete the steps below.
         -   Disallow force pushes
         -   Disallow deletions
 
-## Adding code other than AOD (TODO #9)
+## Adding code other than AOD
+
+Rarely but the repo admins might need to check in changes to the repo that are
+not AOD request. To do that, the admin would need to send PRs as usual with
+"lock branch" temporarily disabled. This activity should be coordinated
+carefully to make sure AOD request PRs won't be merged accidentally.
