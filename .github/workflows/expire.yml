@@ -26,7 +26,7 @@ jobs:
     permissions:
       pull-requests: 'write'
       contents: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@2c7e195b36ac35a01932138d7979b52a56bbea38' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@2eba0549e4a5879ffcfa129d5fcdfcf10985d0d2' # Change here to pin the tag or commit.
     with:
       repo: '${{ github.repository }}'
       # To specify expiry_hours (the number of hours to keep an AOD PR open
