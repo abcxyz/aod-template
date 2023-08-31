@@ -39,11 +39,17 @@ to set up this repo properly.**
 4.  The AOD request PR **CANNOT** and **SHOULD NOT** be merged
 
     Please close the PR when you are done and a workflow will be triggered to do
-    cleanup. Otherwise, the PR will automatically be closed after X hours
-    depending on how you configure your
-    [expire.yml](.github/workflows/expire.yml) job.
+    cleanup.
 
-## How AOD works(TODO #7)
+    -   IAM cleanup: removes the requested permissions.
+    -   Tool cleanup: executes the requested cleanup commands.
+
+    Otherwise, the PR will automatically be closed after X hours depending on
+    how you configure your [expire.yml](.github/workflows/expire.yml) job.
+
+## How AOD works
+
+Please refer to the high level flow [here](https://github.com/abcxyz/access-on-demand#high-level-flow).
 
 ## Prerequisites
 
