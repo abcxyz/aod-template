@@ -20,6 +20,7 @@ on:
     branches:
       - 'main'
     paths:
+      - 'tool.yaml'
       - 'iam.yaml'
 
 concurrency:
