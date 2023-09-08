@@ -53,7 +53,9 @@ Please refer to the high level flow [here](https://github.com/abcxyz/access-on-d
 
 ## Prerequisites
 
-The admin of your GCP project/folder/org to complete the steps below.
+The admin of your GCP project/folder/org to complete the steps below. If you
+have groups that cannot access each other's resources, please repeat the process
+to create an AOD instance for each.
 
 1.  Create an AOD repository using this template, only copy main branch is
     required.
@@ -62,13 +64,20 @@ The admin of your GCP project/folder/org to complete the steps below.
     [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation),
     and a service account with adequate condition and permission, see guide
     [here](https://github.com/google-github-actions/auth#setting-up-workload-identity-federation).
+    Please restrict any human access to this service account, it should only be
+    used by your AOD instance.
 
-    -   Make sure to map the attribute `"attribute.job_workflow_ref":
-        "assertion.job_workflow_ref"` and add an attribute condition
-        `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")`
-        when creating the workload identity pool provider to only allow trusted
-        GitHub workflows which are workflows from `abcxyz/access-on-demand`
-        repo.
+    -   When creating the workload identity pool provider, make sure to map the
+        attributes such as `"attribute.job_workflow_ref":
+        "assertion.job_workflow_ref"` and add attribute conditions:
+        -   `attribute.event_name != \"pull_request_target\"` to prevent
+            workflows triggered by a forked repository.
+        -   `attribute.repository_owner_id == \"${var.github_owner_id}\" &&
+            attribute.repository_id == \"${var.github_repository_id}\"` to only
+            allow workflows from your AOD repository.
+        -   `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")`
+            to only allow trusted workflow jobs which are from
+            `abcxyz/access-on-demand` source repo.
 
     -   The minimum permissions for the service account are `getIamPolicy` and
         `setIamPolicy`. These permissions can be on projects, folders, or
