@@ -46,9 +46,13 @@ jobs:
       pull-requests: 'write'
       contents: 'write'
       id-token: 'write'
-    uses: 'sqin2019/access-on-demand-fork/.github/workflows/cleanup.yml@main'
+    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@main'
+    # To specify input vars, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
-      workload_identity_provider: 'projects/901968413216/locations/global/workloadIdentityPools/github-pool-c12c/providers/github-provider'
-      service_account: 'hello-world-c12c-ci-sa@suhongq-dev-041665.iam.gserviceaccount.com'
+      workload_identity_provider: '${{ vars.workload_identity_provider }}'
+      service_account: '${{ vars.service_account }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.21'' }}'
       pr_number: '${{ matrix.pull.pullNumber }}'
       branch: '${{ matrix.pull.pullBranch }}'
