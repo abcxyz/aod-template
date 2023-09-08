@@ -22,14 +22,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  handle:
+  expire:
     permissions:
       pull-requests: 'write'
-      contents: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.0' # Change here to pin the tag or commit.
+      contents: 'read'
+    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.1' # Change here to pin the tag or commit.
     with:
       repo: '${{ github.repository }}'
       # To specify expiry_hours (the number of hours to keep an AOD PR open
       # since last updated), change the repository variables.
       # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
       expiry_hours: '${{ vars.expiry_hours || 24 }}'
+
+  # Trigger cleanup for each of the closed/expired PRs, as they won't be
+  # triggered automatically due to https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow
+  cleanup:
+    needs: 'expire'
+    if: '${{ needs.expire.outputs.pulls != ''[]''}}'
+    strategy:
+      matrix:
+        pull: '${{ fromJSON(needs.expire.outputs.pulls) }}'
+    permissions:
+      pull-requests: 'write'
+      contents: 'write'
+      id-token: 'write'
+    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.1'
+    # To specify input vars, change the repository variables.
+    # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
+    with:
+      workload_identity_provider: '${{ vars.workload_identity_provider }}'
+      service_account: '${{ vars.service_account }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''latest'' }}'
+      go_version: '${{ vars.go_version || ''1.21'' }}'
+      pr_number: '${{ matrix.pull.pullNumber }}'
+      branch: '${{ matrix.pull.pullBranch }}'
