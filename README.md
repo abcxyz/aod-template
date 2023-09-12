@@ -47,6 +47,9 @@ to set up this repo properly.**
     Otherwise, the PR will automatically be closed after X hours depending on
     how you configure your [expire.yml](.github/workflows/expire.yml) job.
 
+    To retry if cleanup failed, please restore your branch, reopen the PR, and
+    then close the PR.
+
 ## How AOD works
 
 Please refer to the high level flow [here](https://github.com/abcxyz/access-on-demand#high-level-flow).

@@ -34,7 +34,7 @@ jobs:
       contents: 'write'
       id-token: 'write'
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.1' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.2' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
