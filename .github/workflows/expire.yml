@@ -26,7 +26,7 @@ jobs:
     permissions:
       pull-requests: 'write'
       contents: 'read'
-    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.1' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.2' # Change here to pin the tag or commit.
     with:
       repo: '${{ github.repository }}'
       # To specify expiry_hours (the number of hours to keep an AOD PR open
@@ -46,7 +46,7 @@ jobs:
       pull-requests: 'write'
       contents: 'write'
       id-token: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.1'
+    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.2'
     # To specify input vars, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
