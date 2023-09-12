@@ -1,0 +1,4 @@
+do:
+  - 'projects list --uri --sort-by=projectId --limit=1'
+cleanup:
+  - 'projects list --format json --uri --sort-by=projectId --limit=1'
