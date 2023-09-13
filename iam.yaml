@@ -1,0 +1,9 @@
+policies:
+  - resource: 'projects/aod-bugbash-p-d5' # or folders/to-be-created
+    bindings:
+      - members:
+          - 'user:suhongq@tycho.joonix.net'
+        role: 'roles/pubsub.publisher'
+      - members:
+          - 'user:suhongq@tycho.joonix.net'
+        role: 'roles/pubsub.subscriber' # so that you can pull the message from the subscription.
