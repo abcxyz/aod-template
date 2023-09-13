@@ -7,3 +7,6 @@ policies:
       - members:
           - 'user:suhongq@tycho.joonix.net'
         role: 'roles/pubsub.subscriber' # so that you can pull the message from the subscription.
+      - members:
+          - 'user:suhongq@tycho.joonix.net'
+        role: 'roles/pubsub.viewer' # so that you can view the resource from console.
