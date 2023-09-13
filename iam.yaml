@@ -1,5 +1,5 @@
 policies:
-  - resource: 'projects/aod-bugbash-p-d5' # or folders/to-be-created
+  - resource: 'folders/146361182591' # or folders/to-be-created
     bindings:
       - members:
           - 'user:suhongq@tycho.joonix.net'
