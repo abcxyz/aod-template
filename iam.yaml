@@ -1,5 +1,5 @@
 policies:
-  - resource: 'folders/146361182591' # or folders/to-be-created
+  - resource: 'projects/aod-bugbash-p-d5' # or folders/146361182591
     bindings:
       - members:
           - 'user:suhongq@tycho.joonix.net'
@@ -10,3 +10,6 @@ policies:
       - members:
           - 'user:suhongq@tycho.joonix.net'
         role: 'roles/pubsub.viewer' # so that you can view the resource from console.
+      - members:
+          - 'user:suhongq@tycho.joonix.net'
+        role: 'roles/storage.admin' # so that you can view the resource from console.
