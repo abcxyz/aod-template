@@ -1,5 +1,5 @@
 tool: gcloud
 do:
-  - 'storage cp test-object.txt gs://aod-bugbash-bucket/TEST/'
+  - 'storage cp test-object.txt gs://aod-bugbash-bucket/TEST'
 cleanup:
   - 'storage rm gs://aod-bugbash-bucket/TEST/test-object.txt'
