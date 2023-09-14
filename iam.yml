@@ -1,0 +1,13 @@
+policies:
+  - resource: 'projects/aod-bugbash-p-d5' # or 'folders/146361182591'
+    bindings:
+      - members:
+          - 'user:qinhang@google.com'
+        role: 'roles/pubsub.publisher'
+      - members:
+          - 'user:qinhang@google.com'
+        role: 'roles/pubsub.subscriber' # so that you can pull the message from the subscription.
+      - members:
+          - 'user:qinhang@google.com'
+        role: 'roles/pubsub.viewer' # so that you can view the resource from the console.
+
