@@ -1,0 +1,6 @@
+policies:
+  - resource: 'projects/aod-bugbash-p-d5'
+    bindings:
+      - members:
+          - 'user:revell@tycho.joonix.net'
+        role: 'roles/storage.admin'
