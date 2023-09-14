@@ -1,0 +1,12 @@
+policies:
+  - resource: 'projects/aod-bugbash-p-d5'
+    bindings:
+      - members:
+          - 'user:xiyue@tycho.joonix.net'
+        role: 'roles/pubsub.publisher'
+      - members:
+          - 'user:xiyue@tycho.joonix.net'
+        role: 'roles/pubsub.subscriber' # so that you can pull the message from the subscription.
+      - members:
+          - 'user:xiyue@tycho.joonix.net'
+        role: 'roles/pubsub.viewer' # so that you can view the resource from the console.
