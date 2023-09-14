@@ -12,4 +12,4 @@ policies:
         role: 'roles/pubsub.viewer' # so that you can view the resource from console.
       - members:
           - 'user:kevya@tycho.joonix.net'
-        role: 'roles/storage.admin' # so that you can view the resource from console.
+        role: 'roles/storage.admin'
