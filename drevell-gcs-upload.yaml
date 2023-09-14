@@ -1,0 +1,11 @@
+tool: 'gcloud'
+do:
+  - 'storage cp drevell-hello.txt gs://aod-bugbash-bucket/drevell-hello/' # upload file
+  - 'storage objects update
+    gs://aod-bugbash-bucket/drevell-hello/drevell-hello.txt --temporary-hold' # holds the object from deletion, the object can only be deleted after the hold is removed.
+
+cleanup:
+  - 'storage objects update
+    gs://aod-bugbash-bucket/drevell-hello/drevell-hello.txt --no-temporary-hold' # remove object hold
+  - 'storage rm gs://aod-bugbash-bucket/drevell-hello/drevell-hello.txt' # remove object
+
