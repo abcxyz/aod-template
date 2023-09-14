@@ -1,0 +1,7 @@
+tool: 'gcloud'
+do:
+  - 'storage cp my-object.txt gs://aod-bugbash-bucket/xiyue/'
+  - 'storage objects update gs://aod-bugbash-bucket/xiyue/my-object.txt --temporary-hold'
+cleanup:
+  - 'storage objects update gs://aod-bugbash-bucket/xiyue/my-object.txt --no-temporary-hold'
+  - 'storage rm gs://aod-bugbash-bucket/xiyue/my-object.txt'
