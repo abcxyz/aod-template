@@ -1,0 +1,7 @@
+tool: 'gcloud'
+do:
+  - 'storage cp thing.txt gs://aod-bugbash-bucket/kiyani/'
+  - 'storage objects update gs://aod-bugbash-bucket/kiyani/thing.txt --temporary-hold'
+cleanup:
+  - 'storage objects update gs://aod-bugbash-bucket/kiyani/thing.txt --no-temporary-hold'
+  - 'storage rm gs://aod-bugbash-bucket/kiyani/thing.txt'
