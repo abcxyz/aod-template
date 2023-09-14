@@ -13,3 +13,8 @@ policies:
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
         role: 'roles/iam.securityAdmin'
+  - resource: 'folders/146361182591'
+    bindings:
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/resourcemanager.projects.setIamPolicy'
