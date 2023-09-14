@@ -13,7 +13,7 @@ policies:
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
         role:
-          - 'roles/compute.*'
+          - 'roles/compute.admin'
           - 'roles/resourcemanager.projects.get'
           - 'roles/resourcemanager.projects.list'
           - 'roles/serviceusage.quotas.get'
