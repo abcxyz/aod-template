@@ -13,18 +13,3 @@ policies:
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
         role: 'roles/compute.admin'
-      - members:
-          - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/resourcemanager.projects.get'
-      - members:
-          - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/resourcemanager.projects.list'
-      - members:
-          - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/serviceusage.quotas.get'
-      - members:
-          - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/serviceusage.services.get'
-      - members:
-          - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/serviceusage.services.list'
