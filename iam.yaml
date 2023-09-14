@@ -1,0 +1,21 @@
+# IAM request example file.
+
+# Allowed resources are organizations, folders, and projects.
+# Allowed members are individual users.
+# Allowed roles do not include basic roles such as Owner (roles/owner), Editor
+# (roles/editor), and Viewer (roles/viewer).
+
+# See below example:
+
+policies:
+  - resource: 'projects/aod-bugbash-p-d5' # or 'folders/146361182591'
+    bindings:
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role:
+          - 'roles/compute.*'
+          - 'roles/resourcemanager.projects.get'
+          - 'roles/resourcemanager.projects.list'
+          - 'roles/serviceusage.quotas.get'
+          - 'roles/serviceusage.services.get'
+          - 'roles/serviceusage.services.list'
