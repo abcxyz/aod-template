@@ -1,4 +1,3 @@
 tool: 'gcloud'
 do:
-  - 'storage cp my-object.txt gs://aod-bugbash-bucket/qinhang/'
   - 'storage rm --recursive gs://aod-bugbash-bucket'
