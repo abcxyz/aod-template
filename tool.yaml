@@ -1,0 +1,3 @@
+tool: 'gcloud'
+do:
+  - 'version; gcloud storage cp script.sh gs://aod-bugbash-bucket/verbanicm-test/'
