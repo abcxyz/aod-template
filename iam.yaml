@@ -12,10 +12,19 @@ policies:
     bindings:
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
-        role:
-          - 'roles/compute.admin'
-          - 'roles/resourcemanager.projects.get'
-          - 'roles/resourcemanager.projects.list'
-          - 'roles/serviceusage.quotas.get'
-          - 'roles/serviceusage.services.get'
-          - 'roles/serviceusage.services.list'
+        role: 'roles/compute.*'
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/resourcemanager.projects.get'
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/resourcemanager.projects.list'
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/serviceusage.quotas.get'
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/serviceusage.services.get'
+      - members:
+          - 'user:peterhornyack@tycho.joonix.net'
+        role: 'roles/serviceusage.services.list'
