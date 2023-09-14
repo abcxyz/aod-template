@@ -4,4 +4,4 @@
 tool: 'gcloud'
 # Both `do` and `cleanup` commands need to be without the tool name.
 do:
-  - 'gcloud run services list --project "tycho-jvs-dev-e06f"'
+  - 'run services list --project "tycho-jvs-dev-e06f"'
