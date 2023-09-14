@@ -12,7 +12,7 @@ policies:
     bindings:
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
-        role: 'roles/compute.*'
+        role: 'roles/compute.admin'
       - members:
           - 'user:peterhornyack@tycho.joonix.net'
         role: 'roles/resourcemanager.projects.get'
