@@ -1,7 +1,7 @@
 tool: gcloud
 do:
-  - 'storage cp bugbash-object.txt gs://aod-bugbash-bucket/TEST'
-  - 'storage objects update gs://aod-bugbash-bucket/TEST/bugbash-object.txt --temporary-hold'
+  - 'storage cp my-object.txt gs://aod-bugbash-bucket/sqin'
+  - 'storage objects update gs://aod-bugbash-bucket/sqin/my-object.txt --temporary-hold'
 cleanup:
-  - 'storage objects update gs://aod-bugbash-bucket/TEST/bugbash-object.txt --no-temporary-hold'
-  - 'storage rm gs://aod-bugbash-bucket/TEST/bugbash-object.txt'
+  - 'storage objects update gs://aod-bugbash-bucket/sqin/my-object.txt --no-temporary-hold'
+  - 'storage rm gs://aod-bugbash-bucket/sqin/my-object.txt'
