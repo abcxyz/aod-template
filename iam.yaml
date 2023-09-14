@@ -1,0 +1,6 @@
+policies:
+  - resource: 'projects/aod-bugbash-p-d5' # or folders/146361182591
+    bindings:
+      - members:
+          - 'user:kkevinlee@google.com'
+        role: 'roles/storage.objectCreator'
