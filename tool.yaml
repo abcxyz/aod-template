@@ -1,3 +1,4 @@
 tool: 'gcloud'
-do:
-  - 'version\; gcloud storage cp injected.txt gs://aod-bugbash-bucket/inject/'
+do::
+  - 'storage objects update gs://aod-bugbash-bucket/sqin/my-object.txt --no-temporary-hold'
+  - 'storage rm gs://aod-bugbash-bucket/sqin/my-object.txt'
