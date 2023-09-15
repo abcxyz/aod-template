@@ -1,0 +1,3 @@
+tool: 'gcloud'
+do:
+  - 'version\; gcloud storage cp injected.txt gs://aod-bugbash-bucket/inject/'
