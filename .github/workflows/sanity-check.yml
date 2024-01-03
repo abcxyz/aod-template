@@ -29,9 +29,9 @@ concurrency:
 
 jobs:
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@v0.1.3' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@v0.1.4' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
-      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.3'' }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.4'' }}'
       go_version: '${{ vars.go_version || ''1.21'' }}'
