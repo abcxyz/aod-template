@@ -108,17 +108,16 @@ to create an AOD instance for each.
     -   Set up
         [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
         with the group to approve AOD requests
-    -   Branch protection on the `main` (default) branch
+    -   Add a new branch Ruleset on the `main` (default) branch
+        -   Require signed commits
+        -   Restrict updates
+        -   Restrict deletions
         -   Require a pull request before merging
-            -   Require approvals
+            -   Require at least 1 approvals
             -   Dismiss stale pull request approvals when new commits are pushed
-            -   Require review from Code Owners
             -   Require approval of the most recent reviewable push
         -   Require status checks to pass before merging
-        -   Require signed commits
-        -   [Lock branch](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches#lock-branch)
-        -   Disallow force pushes
-        -   Disallow deletions
+        -   Block force pushes
 
 ## Adding code other than AOD
 
