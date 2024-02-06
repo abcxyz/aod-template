@@ -104,6 +104,8 @@ to create an AOD instance for each.
 
 5.  It is critical to enable the following repo settings:
 
+    #### Repository settings
+
     -   Disable forking
     -   Set up
         [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
