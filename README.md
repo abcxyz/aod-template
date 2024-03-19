@@ -42,10 +42,10 @@ to set up this repo properly.**
     cleanup.
 
     -   IAM cleanup: removes the requested permissions.
-    -   Tool cleanup: executes the requested cleanup commands.
 
-    Otherwise, the PR will automatically be closed after X hours depending on
-    how you configure your [expire.yml](.github/workflows/expire.yml) job.
+    Otherwise, the PR will automatically be closed after X hours of the last
+    commited time depending on how you configure your
+    [expire.yml](.github/workflows/expire.yml) job.
 
     To retry if cleanup failed, please restore your branch, reopen the PR, and
     then close the PR.
