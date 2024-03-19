@@ -30,7 +30,7 @@ jobs:
     with:
       repo: '${{ github.repository }}'
       # To specify expiry_hours (the number of hours to keep an AOD PR open
-      # since last updated), change the repository variables.
+      # since last committed), change the repository variables.
       # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
       expiry_hours: '${{ vars.expiry_hours || 24 }}'
 
