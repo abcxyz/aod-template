@@ -2,7 +2,7 @@
 
 # Currently we only support gcloud tool, the defaul tool is `gcloud`.
 tool: 'gcloud'
-# Both `do` and `cleanup` commands need to be without the tool name.
+# The `do` commands need to be without the tool name.
 do:
   - >-
     scheduler jobs update pubsub my-job

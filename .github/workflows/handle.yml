@@ -29,11 +29,11 @@ jobs:
       contents: 'read'
       id-token: 'write'
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@v0.1.4' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@v0.1.5' # Change here to pin the tag or commit.
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
       workload_identity_provider: '${{ vars.workload_identity_provider }}'
       service_account: '${{ vars.service_account }}'
-      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.4'' }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.5'' }}'
       go_version: '${{ vars.go_version || ''1.21'' }}'
