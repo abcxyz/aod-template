@@ -16,8 +16,14 @@
 name: 'aod-handle'
 
 on:
+  pull_request:
+    types:
+      - 'labeled'
+      - 'opened'
+      - 'synchronize'
   pull_request_review:
-    types: ['submitted']
+    types:
+      - 'submitted'
 
 concurrency:
   group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-request-handle'
