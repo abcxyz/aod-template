@@ -1,4 +1,4 @@
-# repo-template
+# aod-template
 
 **This is not an official Google product.**
 
@@ -13,35 +13,34 @@ to set up this repo properly.**
 
 1.  Open a PR
 
-    -   A title and description to provide enough justification. E.g. "AOD
-        request: debug customer issue X".
-    -   To request IAM permissions on org/folder/project level, add an
-        `iam.yaml` file in the repo root, see [example](example-iam.yaml).
-        -   (Optional) Use predefined duration labels on the PR to specify the
-            IAM permission expiration. Otherwise a 2h default duration will be
-            used.
-    -   To request on-demand `gcloud` commands, add a `tool.yaml` file in the
-        repo root, see [example](example-tool.yaml).
+    - A title and description to provide enough justification. E.g. "AOD
+      request: debug customer issue X".
+    - To request IAM permissions on org/folder/project level, add an `iam.yaml`
+      file in the repo root, see [example](example-iam.yaml).
+      - (Optional) Use predefined duration labels on the PR to specify the IAM
+        permission expiration. Otherwise a 2h default duration will be used.
+    - To request on-demand `gcloud` commands, add a `tool.yaml` file in the repo
+      root, see [example](example-tool.yaml).
 
 2.  Checks
 
-    -   The "Validate Request" check will report errors if there are problems in
-        your `iam.yaml` or `tool.yaml`.
+    - The "Validate Request" check will report errors if there are problems in
+      your `iam.yaml` or `tool.yaml`.
 
 3.  Getting approval
 
-    -   Ask one of the repo code owners to approve the PR.
-    -   Upon approval, another GitHub workflow will run to grant you the IAM
-        permissions or run the on-demand `gcloud` commands (`do` commands in
-        your `tool.yaml` file).
-    -   The result will be posted as PR comments.
+    - Ask one of the repo code owners to approve the PR.
+    - Upon approval, another GitHub workflow will run to grant you the IAM
+      permissions or run the on-demand `gcloud` commands (`do` commands in your
+      `tool.yaml` file).
+    - The result will be posted as PR comments.
 
 4.  The AOD request PR **CANNOT** and **SHOULD NOT** be merged
 
     Please close the PR when you are done and a workflow will be triggered to do
     cleanup.
 
-    -   IAM cleanup: removes the requested permissions.
+    - IAM cleanup: removes the requested permissions.
 
     Otherwise, the PR will automatically be closed after X hours of the last
     committed time depending on how you configure your
@@ -52,7 +51,19 @@ to set up this repo properly.**
 
 ## How AOD works
 
-Please refer to the high level flow [here](https://github.com/abcxyz/access-on-demand#high-level-flow).
+Please refer to the high level flow
+[here](https://github.com/abcxyz/access-on-demand#high-level-flow).
+
+### Breakglass (optional)
+
+Some teams may have the need to allow users to "breakglass" or escalate
+permissions in an emergency or debugging situation. Often, this happens during
+off hours when there aren't any other teammates around to approve these time
+sensitive requests. To allow for this, the requester should add the
+`aod-breakglass` label to their pull request. When this label is added, the
+workflows will automatically trigger the request allowing for the access needed
+in these scenarios. See the following section to learn how to setup this label
+for your repository.
 
 ## Prerequisites
 
@@ -70,58 +81,65 @@ to create an AOD instance for each.
     Please restrict any human access to this service account, it should only be
     used by your AOD instance.
 
-    -   When creating the workload identity pool provider, make sure to map the
-        attributes such as `"attribute.job_workflow_ref":
-        "assertion.job_workflow_ref"` and add attribute conditions:
-        -   `attribute.event_name != \"pull_request_target\"` to prevent
-            workflows triggered by a forked repository.
-        -   `attribute.repository_owner_id == \"${var.github_owner_id}\" &&
-            attribute.repository_id == \"${var.github_repository_id}\"` to only
-            allow workflows from your AOD repository.
-        -   `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")`
-            to only allow trusted workflow jobs which are from
-            `abcxyz/access-on-demand` source repo.
+    - When creating the workload identity pool provider, make sure to map the
+      attributes such as
+      `"attribute.job_workflow_ref": "assertion.job_workflow_ref"` and add
+      attribute conditions:
 
-    -   The minimum permissions for the service account are `getIamPolicy` and
-        `setIamPolicy`. These permissions can be on projects, folders, or
-        organizations level. For example,
-        ["roles/resourcemanager.projectIamAdmin"](https://cloud.google.com/resource-manager/docs/access-control-proj#resourcemanager.projectIamAdmin)
-        is a predefined role for managing project level IAM permission, an
-        alternative is to use custom roles for a more restricted set of
-        permissions.
+      - `attribute.event_name != \"pull_request_target\"` to prevent workflows
+        triggered by a forked repository.
+      - `attribute.repository_owner_id == \"${var.github_owner_id}\" && attribute.repository_id == \"${var.github_repository_id}\"`
+        to only allow workflows from your AOD repository.
+      - `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")` to
+        only allow trusted workflow jobs which are from
+        `abcxyz/access-on-demand` source repo.
+
+    - The minimum permissions for the service account are `getIamPolicy` and
+      `setIamPolicy`. These permissions can be on projects, folders, or
+      organizations level. For example,
+      ["roles/resourcemanager.projectIamAdmin"](https://cloud.google.com/resource-manager/docs/access-control-proj#resourcemanager.projectIamAdmin)
+      is a predefined role for managing project level IAM permission, an
+      alternative is to use custom roles for a more restricted set of
+      permissions.
 
 3.  Follow steps
     [here](https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository)
     to set the repository variables for WORKLOAD_IDENTITY_PROVIDER and
     SERVICE_ACCOUNT with outputs from step 2.
 
-4.  (Optional) Create labels to be used as IAM permission expiration. IAM
+4.  (Optional) Create the `aod-breakglass` label to be used as the breakglass
+    identifier for auto-approvals during an emergency situation. Follow the
+    steps
+    [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
+    to create the label `aod-breakglass`.
+
+5.  (Optional) Create labels to be used as IAM permission expiration. IAM
     permissions granted via AOD will have a default 2 hour expiration when the
     request is approved. To use custom expirations, follow steps
     [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
     to create duration labels. `duration-4h` is an example of valid duration
     label.
 
-5.  It is critical to enable the following repo settings:
+6.  It is critical to enable the following repo settings:
 
     #### Repository settings
 
-    -   Disable forking
-    -   Set up
-        [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-        with the group to approve AOD requests
-    -   Add a new branch Ruleset on the target `main` (default) branch
-        -   Restrict creations
-        -   Restrict updates
-        -   Restrict deletions
-        -   Require signed commits (Optional, but recommended)
-        -   Require a pull request before merging
-            -   Require at least 1 approvals
-            -   Dismiss stale pull request approvals when new commits are pushed
-            -   Require review from Code Owners
-            -   Require approval of the most recent reviewable push
-        -   Require status checks to pass before merging
-        -   Block force pushes
+    - Disable forking
+    - Set up
+      [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+      with the group to approve AOD requests
+    - Add a new branch Ruleset on the target `main` (default) branch
+      - Restrict creations
+      - Restrict updates
+      - Restrict deletions
+      - Require signed commits (Optional, but recommended)
+      - Require a pull request before merging
+        - Require at least 1 approvals
+        - Dismiss stale pull request approvals when new commits are pushed
+        - Require review from Code Owners
+        - Require approval of the most recent reviewable push
+      - Require status checks to pass before merging
+      - Block force pushes
 
 ## Adding code other than AOD
 
