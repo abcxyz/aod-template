@@ -1,0 +1,15 @@
+# IAM request example file.
+
+# Allowed resources are organizations, folders, and projects.
+# Allowed members are individual users.
+# Allowed roles do not include basic roles such as Owner (roles/owner), Editor
+# (roles/editor), and Viewer (roles/viewer).
+
+# See below example:
+
+policies:
+  - resource: 'projects/bap-images-p-bf'
+    bindings:
+      - members:
+          - 'user:stanchen@google.com'
+        role: 'roles/compute.instanceAdmin.v1'
