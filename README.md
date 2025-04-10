@@ -15,10 +15,12 @@ to set up this repo properly.**
 
     - A title and description to provide enough justification. E.g. "AOD
       request: debug customer issue X".
+    - (Optional) Add a line like AOD_DURATION={duration} at the end of your PR
+      description in order to change the default AOD expiration from 2h.
+      Examples: `AOD_DURATION=45m`, `AOD_DURATION=24h`, `AOD_DURATION=72h`. For
+      more details see https://pkg.go.dev/time#ParseDuration.
     - To request IAM permissions on org/folder/project level, add an `iam.yaml`
       file in the repo root, see [example](example-iam.yaml).
-      - (Optional) Use predefined duration labels on the PR to specify the IAM
-        permission expiration. Otherwise a 2h default duration will be used.
     - To request on-demand `gcloud` commands, add a `tool.yaml` file in the repo
       root, see [example](example-tool.yaml).
 
@@ -113,14 +115,7 @@ to create an AOD instance for each.
     [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
     to create the label `aod-breakglass`.
 
-5.  (Optional) Create labels to be used as IAM permission expiration. IAM
-    permissions granted via AOD will have a default 2 hour expiration when the
-    request is approved. To use custom expirations, follow steps
-    [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
-    to create duration labels. `duration-4h` is an example of valid duration
-    label.
-
-6.  It is critical to enable the following repo settings:
+5.  It is critical to enable the following repo settings:
 
     #### Repository settings
 
