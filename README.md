@@ -42,8 +42,8 @@ to set up this repo properly.**
     Please close the PR when you are done and a workflow will be triggered to do
     IAM cleanup.
 
-    - Removes the requested permissions even when they are within
-      expiration(AOD_DURATION).
+    - Removes the requested permissions even if the AOD_DURATION has not
+    elapsed.
     - Removes any expired premissions granted by AOD.
 
     Otherwise, the PR will automatically be closed after X hours of the last
