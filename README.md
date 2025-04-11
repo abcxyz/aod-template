@@ -40,13 +40,17 @@ to set up this repo properly.**
 4.  The AOD request PR **CANNOT** and **SHOULD NOT** be merged
 
     Please close the PR when you are done and a workflow will be triggered to do
-    cleanup.
+    IAM cleanup.
 
-    - IAM cleanup: removes the requested permissions.
+    - Removes the requested permissions even if the AOD_DURATION has not
+    elapsed.
+    - Removes any expired premissions granted by AOD.
 
     Otherwise, the PR will automatically be closed after X hours of the last
     committed time depending on how you configure your
-    [expire.yml](.github/workflows/expire.yml) job.
+    [expire.yml](.github/workflows/expire.yml) job. The cleanup workflow will
+    be triggered afterwards. With the expire workflow, it enforces a maximum
+    IAM permissions expiration.
 
     To retry if cleanup failed, please restore your branch, reopen the PR, and
     then close the PR.
