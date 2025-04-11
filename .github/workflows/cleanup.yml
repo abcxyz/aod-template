@@ -17,7 +17,7 @@ name: 'aod-cleanup'
 
 on:
   pull_request:
-    types: 
+    types:
       - 'closed'
     branches:
       - 'main'
