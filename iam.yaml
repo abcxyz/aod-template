@@ -1,4 +1,3 @@
-# test
 policies:
   - resource: 'projects/aod-template-i-7bf575'
     bindings:
