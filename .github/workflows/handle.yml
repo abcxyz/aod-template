@@ -14,7 +14,6 @@
 
 # Workflow that handles AOD requests.
 name: 'aod-handle'
-
 on:
   pull_request:
     types:
@@ -24,22 +23,20 @@ on:
   pull_request_review:
     types:
       - 'submitted'
-
 concurrency:
   group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}-aod-request-handle'
   cancel-in-progress: true
-
 jobs:
   handle:
     permissions:
       contents: 'read'
       id-token: 'write'
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@v0.1.9' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/handle.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # Change here to pin the tag or commit. ratchet:abcxyz/access-on-demand/.github/workflows/handle.yml@v0.1.10
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
       workload_identity_provider: '${{ vars.workload_identity_provider }}'
       service_account: '${{ vars.service_account }}'
-      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.9'' }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.10'' }}'
       go_version: '${{ vars.go_version || ''1.21'' }}'
