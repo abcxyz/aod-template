@@ -5,3 +5,6 @@ policies:
       - members:
           - 'user:suhongq@tycho.joonix.net'
         role: 'roles/cloudkms.cryptoOperator'
+      - members:
+          - 'user:suhongq@tycho.joonix.net'
+        role: 'roles/accessapproval.approver'
