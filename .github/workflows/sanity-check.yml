@@ -26,7 +26,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # Change here to pin the tag or commit. ratchet:abcxyz/access-on-demand/.github/workflows/validate.yml@v0.1.10
+    uses: 'abcxyz/access-on-demand/.github/workflows/validate.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # ratchet:abcxyz/access-on-demand/.github/workflows/validate.yml@v0.1.10
     # To specify inputs, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:

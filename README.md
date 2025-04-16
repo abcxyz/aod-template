@@ -144,5 +144,14 @@ to create an AOD instance for each.
 
 Rarely but the repo admins might need to check in changes to the repo that are
 not AOD request. To do that, the admin would need to send PRs as usual with
-"lock branch" temporarily disabled. This activity should be coordinated
-carefully to make sure AOD request PRs won't be merged accidentally.
+branch ruleset temporarily disabled, or grant bypass permissions when needed
+(recommended), please check
+[ruleset](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets#about-rulesets)
+for more details. This activity should be coordinated carefully to make sure AOD
+request PRs won't be merged accidentally.
+
+A good example of these changes is to use the latest AOD workflows, repo admins
+will need to check in changes to upgrade each of the workflows used in your AOD
+repository, we recommend to use
+[ratchet upgrade](https://github.com/sethvargo/ratchet?tab=readme-ov-file#upgrade)
+for this type of change.
