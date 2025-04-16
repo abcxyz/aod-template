@@ -29,7 +29,7 @@ jobs:
   note:
     permissions:
       pull-requests: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/note.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # Change here to pin the tag or commit. ratchet:abcxyz/access-on-demand/.github/workflows/note.yml@v0.1.10
+    uses: 'abcxyz/access-on-demand/.github/workflows/note.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # ratchet:abcxyz/access-on-demand/.github/workflows/note.yml@v0.1.10
     with:
       # To specify expiry_hours (the number of hours to keep an AOD PR open
       # since last committed), change the repository variables.
