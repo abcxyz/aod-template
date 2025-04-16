@@ -14,26 +14,23 @@
 
 # Workflow that expires/closes AOD PRs.
 name: 'aod-expire'
-
 on:
   schedule:
     # Change cron schedule here, currently it is every day at 1am.
     - cron: '0 1 * * *'
   workflow_dispatch:
-
 jobs:
   expire:
     permissions:
       pull-requests: 'write'
       contents: 'read'
-    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.9' # Change here to pin the tag or commit.
+    uses: 'abcxyz/access-on-demand/.github/workflows/expire.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # Change here to pin the tag or commit. ratchet:abcxyz/access-on-demand/.github/workflows/expire.yml@v0.1.10
     with:
       repo: '${{ github.repository }}'
       # To specify expiry_hours (the number of hours to keep an AOD PR open
       # since last committed), change the repository variables.
       # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
       expiry_hours: '${{ vars.expiry_hours || 24 }}'
-
   # Trigger cleanup for each of the closed/expired PRs, as they won't be
   # triggered automatically due to https://docs.github.com/en/actions/using-workflows/triggering-a-workflow#triggering-a-workflow-from-a-workflow
   cleanup:
@@ -47,13 +44,13 @@ jobs:
       pull-requests: 'write'
       contents: 'write'
       id-token: 'write'
-    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.9'
+    uses: 'abcxyz/access-on-demand/.github/workflows/cleanup.yml@625f685a62f42ddfa48c8c6da767ae8a0961a2e8' # Change here to pin the tag or commit. ratchet:abcxyz/access-on-demand/.github/workflows/cleanup.yml@v0.1.10
     # To specify input vars, change the repository variables.
     # Details: https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository
     with:
       workload_identity_provider: '${{ vars.workload_identity_provider }}'
       service_account: '${{ vars.service_account }}'
-      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.9'' }}'
+      aod_cli_version: '${{ vars.aod_cli_version || ''0.1.10'' }}'
       go_version: '${{ vars.go_version || ''1.21'' }}'
       pr_number: '${{ matrix.pull.pullNumber }}'
       branch: '${{ matrix.pull.pullBranch }}'
