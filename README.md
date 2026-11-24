@@ -96,9 +96,25 @@ to create an AOD instance for each.
         triggered by a forked repository.
       - `attribute.repository_owner_id == \"${var.github_owner_id}\" && attribute.repository_id == \"${var.github_repository_id}\"`
         to only allow workflows from your AOD repository.
-      - `matches(attribute.job_workflow_ref, \"abcxyz/access-on-demand/*\")` to
-        only allow trusted workflow jobs which are from
+      - `matches(attribute.job_workflow_ref, \"^abcxyz/access-on-demand/\\\\.github/workflows/(handle|cleanup)\\\\.yml@\")`
+        to only allow trusted workflow jobs which are from
         `abcxyz/access-on-demand` source repo.
+
+      **Important:** the OIDC `job_workflow_ref` claim reflects the *reusable*
+      workflow that is executing, not the caller workflow that invoked it. A
+      collaborator with `write` access could push a caller workflow on a
+      non-default branch that invokes the pinned reusable workflow with
+      arbitrary `with:` inputs and still satisfy every condition above. The
+      pinned `abcxyz/access-on-demand` reusable workflows therefore (a)
+      re-derive the PR under review from the GitHub-supplied event payload
+      (`github.event.pull_request.number`) for `pull_request`-triggered
+      callers, (b) only honour the caller-supplied `pr_number` input when the
+      caller is a `schedule`/`workflow_dispatch` run on the repository's default
+      branch (where the caller workflow is itself subject to branch protection
+      and CODEOWNER review), and (c) pin checkout to the PR's immutable head
+      commit SHA (`headRefOid`). Do not pin to a version of the reusable
+      workflows that lacks these checks, and ensure your default branch is
+      protected.
 
     - The minimum permissions for the service account are `getIamPolicy` and
       `setIamPolicy`. These permissions can be on projects, folders, or
@@ -119,7 +135,17 @@ to create an AOD instance for each.
     [here](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label)
     to create the label `aod-breakglass`.
 
-5.  It is critical to enable the following repo settings:
+5.  **Do not enable GitHub Actions caching for the `aod` / `tagrep` binaries.**
+    The reusable workflows intentionally pass an empty `cache_key` to
+    `abcxyz/actions/.github/actions/setup-binary` so the CLI is downloaded fresh
+    on every run. The Actions cache for a pull-request ref is shared between the
+    unapproved `pull_request` validation run and the post-approval
+    `pull_request_review` handle run. Re-enabling caching without verified
+    checksums would let a requester seed a malicious `aod` binary that later
+    executes with the WIF service account's IAM-admin access token. The release
+    tarballs are small; the extra download is negligible.
+
+6.  It is critical to enable the following repo settings:
 
     #### Repository settings
 
